@@ -88,17 +88,22 @@ fullScr.addEventListener('click', () =>{
    (!document.fullscreen) ? activateFullscreen() : deactivateFullscreen();})
    
    btn.addEventListener('click', elem => {
-      let btnNm = 'btn-active'
+      let btnA = 'btn-active'
       let btnNotes = 'btn-notes'
-   if (!elem.target.classList.contains(btnNotes) && !elem.target.classList.contains(btnNm)) {
-      elem.target.classList.add(btnNm)
-      let btnNotes = btn.querySelector('.btn-notes')
-      btnNotes.classList.remove(btnNm)
-      pianoKeys.forEach(el => { el.classList.add('piano-key-letter') })
-   } else {
-      elem.target.classList.add(btnNm)
-      let btnLetters = btn.querySelector('.btn-letters')
-      btnLetters.classList.remove(btnNm)
-      pianoKeys.forEach(el => { el.classList.remove('piano-key-letter') })
-   }
+      let btnLetters = 'btn-letters'
+
+      if (!elem.target.classList.contains(btnA) && !elem.target.classList.contains(btnNotes)) {
+         elem.target.classList.add(btnA)
+         let btnNotes = btn.querySelector('.btn-notes')
+         btnNotes.classList.remove(btnA)
+         pianoKeys.forEach(el => { el.classList.add('piano-key-letter') })
+      } else if (!elem.target.classList.contains(btnA) && !elem.target.classList.contains(btnLetters)) {
+         elem.target.classList.add(btnA)
+         let btnLetters = btn.querySelector('.btn-letters')
+         btnLetters.classList.remove(btnA)
+         pianoKeys.forEach(el => { el.classList.remove('piano-key-letter') })
+      }
+      
+         
+   
 })
