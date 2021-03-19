@@ -1,29 +1,9 @@
-const piano = document.querySelector('.piano')
+const piano = document.querySelector('.main')
 const pianoKeys = document.querySelectorAll('.piano-key')
 const fullScr = document.querySelector('.fullscreen')
 const html = document.documentElement;
 const btn = document.querySelector('.btn-container')
 
-console.log(btn);
-btn.addEventListener('click', elem =>{
-   let btnNm = 'btn-active'
-   let btnNotes = 'btn-notes'
-   let pianokeys = document.querySelectorAll('.piano-key')
-   if (!elem.target.classList.contains(btnNotes) && !elem.target.classList.contains(btnNm)) {
-      elem.target.classList.add(btnNm)
-      let btnNotes = btn.querySelector('.btn-notes')
-      btnNotes.classList.remove(btnNm)
-
-      pianokeys.forEach(el => { el.classList.add('piano-key-letter')})
-   }else{
-      elem.target.classList.add(btnNm)
-      let btnLetters = btn.querySelector('.btn-letters')
-      btnLetters.classList.remove(btnNm)
-      pianokeys.forEach(el => { el.classList.remove('piano-key-letter')})
-
-   }
-
-})
 
 function activateFullscreen() {
    if (html.requestFullscreen) {
@@ -52,7 +32,7 @@ const startSound = (event) => {
    const src = `assets/audio/${note}.mp3`;
    audio.src = src;
    audio.currentTime = 0;
-   event.target.classList.add('piano-key-active')
+   event.target.classList.add('piano-key-active', 'piano-key-active-pseudo')
    audio.play();
 }
 const stopSound = (event) => {
@@ -81,3 +61,19 @@ piano.addEventListener('mouseup', stopMouseHandler, false)
 
 fullScr.addEventListener('click', () =>{
    (!document.fullscreen) ? activateFullscreen() : deactivateFullscreen();})
+
+btn.addEventListener('click', elem => {
+   let btnNm = 'btn-active'
+   let btnNotes = 'btn-notes'
+   if (!elem.target.classList.contains(btnNotes) && !elem.target.classList.contains(btnNm)) {
+      elem.target.classList.add(btnNm)
+      let btnNotes = btn.querySelector('.btn-notes')
+      btnNotes.classList.remove(btnNm)
+      pianoKeys.forEach(el => { el.classList.add('piano-key-letter') })
+   } else {
+      elem.target.classList.add(btnNm)
+      let btnLetters = btn.querySelector('.btn-letters')
+      btnLetters.classList.remove(btnNm)
+      pianoKeys.forEach(el => { el.classList.remove('piano-key-letter') })
+   }
+})
