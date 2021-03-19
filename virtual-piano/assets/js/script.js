@@ -8,14 +8,19 @@ console.log(btn);
 btn.addEventListener('click', elem =>{
    let btnNm = 'btn-active'
    let btnNotes = 'btn-notes'
+   let pianokeys = document.querySelectorAll('.piano-key')
    if (!elem.target.classList.contains(btnNotes) && !elem.target.classList.contains(btnNm)) {
       elem.target.classList.add(btnNm)
       let btnNotes = btn.querySelector('.btn-notes')
       btnNotes.classList.remove(btnNm)
+
+      pianokeys.forEach(el => { el.classList.add('piano-key-letter')})
    }else{
       elem.target.classList.add(btnNm)
       let btnLetters = btn.querySelector('.btn-letters')
       btnLetters.classList.remove(btnNm)
+      pianokeys.forEach(el => { el.classList.remove('piano-key-letter')})
+
    }
 
 })
@@ -42,7 +47,6 @@ function deactivateFullscreen() {
 };
 
 const startSound = (event) => {
-   // console.log(event);
    const audio = new Audio();
    const note = event.target.dataset.note;
    const src = `assets/audio/${note}.mp3`;
