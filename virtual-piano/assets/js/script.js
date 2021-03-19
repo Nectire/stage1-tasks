@@ -1,4 +1,4 @@
-const piano = document.querySelector('.main')
+const piano = document.querySelector('.piano')
 const pianoKeys = document.querySelectorAll('.piano-key')
 const fullScr = document.querySelector('.fullscreen')
 const html = document.documentElement;
@@ -25,16 +25,39 @@ function deactivateFullscreen() {
       document.webkitExitFullscreen();
    }
 };
-
+const pressKey = (event) =>{
+   let key = event.key.toUpperCase();
+   const keyNode = document.querySelector(`.piano-key[data-letter="${key}"]`)
+   if (keyNode){
+      const note = keyNode.dataset.note;
+      const audio = new Audio();
+      const src = `assets/audio/${note}.mp3`;
+      audio.src = src;
+      if (!audio) return;
+      audio.currentTime = 0;
+      keyNode.classList.add('piano-key-active', 'piano-key-active-pseudo')
+      audio.play();
+}
+}
+const dropKey = (event) => {
+   let key = event.key.toUpperCase();
+   const keyNode = document.querySelector(`.piano-key[data-letter="${key}"]`)
+   if (keyNode) {
+      keyNode.classList.remove('piano-key-active', 'piano-key-active-pseudo')
+   }
+}
 const startSound = (event) => {
    const audio = new Audio();
    const note = event.target.dataset.note;
    const src = `assets/audio/${note}.mp3`;
    audio.src = src;
+   if (!audio) return;
    audio.currentTime = 0;
    event.target.classList.add('piano-key-active', 'piano-key-active-pseudo')
    audio.play();
 }
+
+
 const stopSound = (event) => {
    event.target.classList.remove('piano-key-active')
 }
@@ -56,15 +79,17 @@ const stopMouseHandler = () => {
       })
 }
 
+document.addEventListener('keydown', pressKey)
+document.addEventListener('keyup', dropKey)
 piano.addEventListener('mousedown', startMouseHandler, false)
 piano.addEventListener('mouseup', stopMouseHandler, false)
 
 fullScr.addEventListener('click', () =>{
    (!document.fullscreen) ? activateFullscreen() : deactivateFullscreen();})
-
-btn.addEventListener('click', elem => {
-   let btnNm = 'btn-active'
-   let btnNotes = 'btn-notes'
+   
+   btn.addEventListener('click', elem => {
+      let btnNm = 'btn-active'
+      let btnNotes = 'btn-notes'
    if (!elem.target.classList.contains(btnNotes) && !elem.target.classList.contains(btnNm)) {
       elem.target.classList.add(btnNm)
       let btnNotes = btn.querySelector('.btn-notes')
