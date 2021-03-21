@@ -103,7 +103,4 @@ fullScr.addEventListener('click', () =>{
          btnLetters.classList.remove(btnA)
          pianoKeys.forEach(el => { el.classList.remove('piano-key-letter') })
       }
-      
-         
-   
 })
