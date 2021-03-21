@@ -27,8 +27,34 @@ function deactivateFullscreen() {
 };
 const pressKey = (event) =>{
    let key = event.key.toUpperCase();
+   switch (key) {
+      case 'В': key = 'D' 
+         break;
+      case 'А': key = 'F' 
+         break;
+      case 'П': key = 'G' 
+         break;
+      case 'Р': key = 'H' 
+         break;
+      case 'О': key = 'J' 
+         break;
+      case 'Л': key = 'K' 
+         break;
+      case 'Д': key = 'L' 
+         break;
+      case 'К': key = 'R' 
+         break;
+      case 'Е': key = 'T' 
+         break;
+      case 'Г': key = 'U' 
+         break;
+      case 'Ш': key = 'I' 
+         break;
+      case 'Щ': key = 'O' 
+         break;
+   }
    const keyNode = document.querySelector(`.piano-key[data-letter="${key}"]`)
-   if (keyNode){
+   if (keyNode && event.repeat == false) {
       const note = keyNode.dataset.note;
       const audio = new Audio();
       const src = `assets/audio/${note}.mp3`;
@@ -37,11 +63,38 @@ const pressKey = (event) =>{
       audio.currentTime = 0;
       keyNode.classList.add('piano-key-active', 'piano-key-active-pseudo')
       audio.play();
-}
+   }
 }
 const dropKey = (event) => {
    let key = event.key.toUpperCase();
+   switch (key) {
+      case 'В': key = 'D'
+         break;
+      case 'А': key = 'F'
+         break;
+      case 'П': key = 'G'
+         break;
+      case 'Р': key = 'H'
+         break;
+      case 'О': key = 'J'
+         break;
+      case 'Л': key = 'K'
+         break;
+      case 'Д': key = 'L'
+         break;
+      case 'К': key = 'R'
+         break;
+      case 'Е': key = 'T'
+         break;
+      case 'Г': key = 'U'
+         break;
+      case 'Ш': key = 'I'
+         break;
+      case 'Щ': key = 'O'
+         break;
+   }
    const keyNode = document.querySelector(`.piano-key[data-letter="${key}"]`)
+   console.log(keyNode);
    if (keyNode) {
       keyNode.classList.remove('piano-key-active', 'piano-key-active-pseudo')
    }
@@ -57,19 +110,19 @@ const startSound = (event) => {
    audio.play();
 }
 
-
 const stopSound = (event) => {
    event.target.classList.remove('piano-key-active')
 }
 
 const startMouseHandler = (event) =>{
-   event.target.classList.add('piano-key-active')
-   startSound(event)
-   pianoKeys.forEach(elem =>{
-      elem.addEventListener('mouseover', startSound)
-      elem.addEventListener('mouseout', stopSound)
-   })
- 
+   if (event.target.hasAttribute('data-note')) {
+      event.target.classList.add('piano-key-active')
+      startSound(event)
+      pianoKeys.forEach(elem => {
+         elem.addEventListener('mouseover', startSound)
+         elem.addEventListener('mouseout', stopSound)
+      })
+   }
 }
 const stopMouseHandler = () => {
    pianoKeys.forEach(elem => {
@@ -82,7 +135,7 @@ const stopMouseHandler = () => {
 document.addEventListener('keydown', pressKey)
 document.addEventListener('keyup', dropKey)
 piano.addEventListener('mousedown', startMouseHandler, false)
-piano.addEventListener('mouseup', stopMouseHandler, false)
+window.addEventListener('mouseup', stopMouseHandler, false)
 
 fullScr.addEventListener('click', () =>{
    (!document.fullscreen) ? activateFullscreen() : deactivateFullscreen();})
