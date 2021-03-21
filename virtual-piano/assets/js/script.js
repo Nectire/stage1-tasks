@@ -4,7 +4,6 @@ const fullScr = document.querySelector('.fullscreen')
 const html = document.documentElement;
 const btn = document.querySelector('.btn-container')
 
-
 function activateFullscreen() {
    if (html.requestFullscreen) {
       html.requestFullscreen();
@@ -106,7 +105,7 @@ const startSound = (event) => {
    audio.src = src;
    if (!audio) return;
    audio.currentTime = 0;
-   event.target.classList.add('piano-key-active', 'piano-key-active-pseudo')
+   event.target.classList.add('piano-key-active')
    audio.play();
 }
 
@@ -116,7 +115,7 @@ const stopSound = (event) => {
 
 const startMouseHandler = (event) =>{
    if (event.target.hasAttribute('data-note')) {
-      event.target.classList.add('piano-key-active')
+      event.target.classList.add('piano-key-active', 'piano-key-active-pseudo')
       startSound(event)
       pianoKeys.forEach(elem => {
          elem.addEventListener('mouseover', startSound)
@@ -126,7 +125,7 @@ const startMouseHandler = (event) =>{
 }
 const stopMouseHandler = () => {
    pianoKeys.forEach(elem => {
-      elem.classList.remove('piano-key-active')
+      elem.classList.remove('piano-key-active', 'piano-key-active-pseudo')
       elem.removeEventListener('mouseover', startSound)
       elem.removeEventListener('mouseout', stopSound)
       })
